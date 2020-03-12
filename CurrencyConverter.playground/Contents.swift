@@ -4,12 +4,14 @@ enum Currency {
     case usd
     case cad
     case mxn
+    case eur
 }
 
 let usToCad = 1.38
 let usToMxn = 21.58
+let usToEur = 0.90
 
-var currency = Currency.mxn
+var currency = Currency.eur
 
 func convert(_ dollars: Double) -> Double {
     
@@ -18,6 +20,8 @@ func convert(_ dollars: Double) -> Double {
        return dollars * usToCad
     case .mxn:
         return dollars * usToMxn
+    case .eur:
+        return dollars * usToEur
     case .usd:
         return dollars
     }
@@ -35,8 +39,10 @@ func convert(amountString: String) -> String? {
         return "Not a valid number"
     }
     
-    return currencyFormatter.string(from: NSNumber(value: amount))
+    let currency = convert(amount) ?? 0
+    return currencyFormatter.string(from: NSNumber(value: currency))
 }
 
-convert(amountString: "14.55")
-print(convert(amountString: "14.55")!)
+convert(amountString: "100")
+print(convert(amountString: "100")!)
+
